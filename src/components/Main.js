@@ -98,7 +98,36 @@ class ImgFigure extends React.Component{
 	}
 }
 
-
+//控制组件
+class ControllerUnit extends React.Component {
+	constructor(props){
+		super(props);
+	    this.handleClick = this.handleClick.bind(this);
+	}
+	
+	handleClick(e){
+		if(this.props.arrange.isCenter){
+			this.props.inverse();
+		}else{
+			this.props.center();
+		}
+		
+		e.stopPropagation();
+		e.preventDefault();
+	}
+	
+	render(){
+		
+		var conunit = 'controller-unit'
+	    conunit += this.props.arrange.isCenter?' is-center':'';
+        conunit += this.props.arrange.isInverse?' is-inverse':'';
+		
+		return (
+		     <span className={conunit} onClick={
+			this.handleClick}></span>
+		);
+	}
+}
 
 class AppComponent extends React.Component {
 constructor(props){
@@ -308,6 +337,9 @@ constructor(props){
 						arrange={this.state.imgsArrangeArr[index]}  inverse={this.inverse(index)}
 					    center={this.center(index)} />
 					   );
+        controllerUnits.push(<ControllerUnit key={index} data={value} arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)}
+		                 center={this.center(index)}/>
+						 );                 
 	}.bind(this));
 	  
     return (
