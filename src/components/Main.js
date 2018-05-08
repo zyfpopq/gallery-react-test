@@ -68,8 +68,8 @@ class ImgFigure extends React.Component{
 		
 		//如果图片的旋转角度有值且不为0，添加旋转角度
 		if(this.props.arrange.rotate){
-			(['-moz-','-ms-','-webkit-','']).forEach(function(value){
-				styleObj[value + 'transform'] = 'rotate(' + this.props.arrange.rotate + 'deg)';
+			(['-moz-transform','-ms-transform','-webkit-transform','transform']).forEach(function(value){
+				styleObj[value] = 'rotate(' + this.props.arrange.rotate + 'deg)';
 			}.bind(this));
 		}
 		
@@ -118,12 +118,12 @@ class ControllerUnit extends React.Component {
 	
 	render(){
 		
-		var conunit = 'controller-unit'
-	    conunit += this.props.arrange.isCenter?' is-center':'';
-        conunit += this.props.arrange.isInverse?' is-inverse':'';
+		var controlelrUnitClassName = 'controller-unit'
+	    controlelrUnitClassName += this.props.arrange.isCenter?' is-center':'';
+        controlelrUnitClassName += this.props.arrange.isInverse?' is-inverse':'';
 		
 		return (
-		     <span className={conunit} onClick={
+		     <span className={controlelrUnitClassName} onClick={
 			this.handleClick}></span>
 		);
 	}
@@ -251,15 +251,15 @@ constructor(props){
 				   };
 				}
 				
-				if (imgsArrangeTopArr && imgsArrangeTopArr[0]){
+			if (imgsArrangeTopArr && imgsArrangeTopArr[0]){
 				imgsArrangeArr.splice(topImgSpliceIndex,0,imgsArrangeTopArr[0]);
 			    }		
 
-		        imgsArrangeArr.splice(centerIndex,0,imgsArrangeCenterArr[0]);
+		    imgsArrangeArr.splice(centerIndex,0,imgsArrangeCenterArr[0]);
 
-		        this.setState({
+		    this.setState({
 					imgsArrangeArr: imgsArrangeArr
-				});
+			});
 	}
 	
 	 /*
@@ -337,7 +337,7 @@ constructor(props){
 						arrange={this.state.imgsArrangeArr[index]}  inverse={this.inverse(index)}
 					    center={this.center(index)} />
 					   );
-        controllerUnits.push(<ControllerUnit key={index} data={value} arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)}
+        controllerUnits.push(<ControllerUnit key={index} arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)}
 		                 center={this.center(index)}/>
 						 );                 
 	}.bind(this));
